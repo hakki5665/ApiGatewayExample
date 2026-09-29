@@ -4,19 +4,6 @@ server:
 spring:
   application:
     name: api-gateway
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-        - id: flow-manager-route
-          uri: lb://flow-manager
-          predicates:
-            - Path=/api/v1/files/**, /api/v1/tasks/**
-          filters:
-            - AddRequestHeader=X-Gateway-Route, FlowManager-Direct
-            - RemoveRequestHeader=Cookie
 
 eureka:
   client:
