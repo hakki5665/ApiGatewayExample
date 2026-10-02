@@ -5,6 +5,29 @@ spring:
   application:
     name: api-gateway
 
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: api-gateway
+            client-secret: "ZD8Ht8UPMhUMpXjfBzD1SQOF395w07kH"
+            client-name: Keycloak Enterprise Auth
+            provider: keycloak
+            authorization-grant-type: authorization_code
+            scope: openid, profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+        provider:
+          keycloak:
+            authorization-uri: http://localhost:8085/realms/microservices-realm/protocol/openid-connect/auth
+            token-uri: http://keycloak:8080/realms/microservices-realm/protocol/openid-connect/token
+            jwk-set-uri: http://keycloak:8080/realms/microservices-realm/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
+
+      resource-server:
+        jwt:
+          jwk-set-uri: http://keycloak:8080/realms/microservices-realm/protocol/openid-connect/certs
+
 eureka:
   client:
     service-url:
